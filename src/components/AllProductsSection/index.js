@@ -9,37 +9,16 @@ import ProductsHeader from '../ProductsHeader'
 import './index.css'
 
 const categoryOptions = [
-  {
-    name: 'Clothing',
-    categoryId: '1',
-  },
-  {
-    name: 'Electronics',
-    categoryId: '2',
-  },
-  {
-    name: 'Appliances',
-    categoryId: '3',
-  },
-  {
-    name: 'Grocery',
-    categoryId: '4',
-  },
-  {
-    name: 'Toys',
-    categoryId: '5',
-  },
+  {name: 'Clothing', categoryId: '1'},
+  {name: 'Electronics', categoryId: '2'},
+  {name: 'Appliances', categoryId: '3'},
+  {name: 'Grocery', categoryId: '4'},
+  {name: 'Toys', categoryId: '5'},
 ]
 
 const sortbyOptions = [
-  {
-    optionId: 'PRICE_HIGH',
-    displayText: 'Price (High-Low)',
-  },
-  {
-    optionId: 'PRICE_LOW',
-    displayText: 'Price (Low-High)',
-  },
+  {optionId: 'PRICE_HIGH', displayText: 'Price (High-Low)'},
+  {optionId: 'PRICE_LOW', displayText: 'Price (Low-High)'},
 ]
 
 const ratingsList = [
@@ -65,13 +44,6 @@ const ratingsList = [
   },
 ]
 
-const apiStatusConstants = {
-  initial: 'INITIAL',
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-  inProgress: 'IN_PROGRESS',
-}
-
 class AllProductsSection extends Component {
   state = {
     productsList: [],
@@ -88,23 +60,22 @@ class AllProductsSection extends Component {
   }
 
   getProducts = async () => {
-    this.setState({
-      isLoading: true,
-    })
+    this.setState({isLoading: true, errorMsg: false})
     const jwtToken = Cookies.get('jwt_token')
+
     const {
       activeOptionId,
       activeCategoryId,
       searchInput,
       activeRatingId,
     } = this.state
+
     const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`
     const options = {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
+      headers: {Authorization: `Bearer ${jwtToken}`},
       method: 'GET',
     }
+
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const fetchedData = await response.json()
@@ -116,15 +87,9 @@ class AllProductsSection extends Component {
         imageUrl: product.image_url,
         rating: product.rating,
       }))
-      this.setState({
-        productsList: updatedData,
-        // apiStatus: apiStatusConstants.success,
-        isLoading: false,
-      })
+      this.setState({productsList: updatedData, isLoading: false})
     } else {
-      this.setState({
-        apiStatus: apiStatusConstants.failure,
-      })
+      this.setState({errorMsg: true, isLoading: false})
     }
   }
 
@@ -159,6 +124,22 @@ class AllProductsSection extends Component {
     this.setState({activeOptionId}, this.getProducts)
   }
 
+  renderFailureView = () => (
+    <div className="products-error-view-container">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+        alt="products failure"
+        className="products-failure-img"
+      />
+      <h1 className="product-failure-heading-text">
+        Oops! Something Went Wrong
+      </h1>
+      <p className="products-failure-description">
+        We are having some trouble processing your request. Please try again.
+      </p>
+    </div>
+  )
+
   renderProductsList = () => {
     const {productsList, activeOptionId, errorMsg} = this.state
 
@@ -166,7 +147,6 @@ class AllProductsSection extends Component {
       return this.renderFailureView()
     }
 
-    // TODO: Add No Products View
     return (
       <>
         {productsList.length === 0 ? (
@@ -200,25 +180,8 @@ class AllProductsSection extends Component {
   }
 
   renderLoader = () => (
-    <div className="products-loader-container">
+    <div className="products-loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
-    </div>
-  )
-
-  // TODO: Add failure view
-  renderFailureView = () => (
-    <div className="products-error-view-container">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-        alt="products failure"
-        className="products-failure-img"
-      />
-      <h1 className="product-failure-heading-text">
-        Oops! Something Went Wrong
-      </h1>
-      <p className="products-failure-description">
-        We are having some trouble processing your request. Please try again.
-      </p>
     </div>
   )
 
@@ -232,7 +195,6 @@ class AllProductsSection extends Component {
 
     return (
       <div className="all-products-section">
-        {/* TODO: Update the below element */}
         <FiltersGroup
           searchInput={searchInput}
           categoryOptions={categoryOptions}
