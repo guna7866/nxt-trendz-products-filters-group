@@ -1,18 +1,13 @@
-In this project, let's build a **Nxt Trendz - Products Filters Group** app by applying the concepts we have learned till now.
+In this project, let's build a **Nxt Trendz - Cart Features** by applying the concepts we have learned till now.
+Live : https://ECWEBSITEVIKAS.ccbp.tech Username : rahul | Password : rahul@2021
 
-### Refer to the images below:
-
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-output-v0.gif" alt="products filters group output" style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
-
-**Failure View**
+### Refer to the video below:
 
 <br/>
 <div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-failure-view-output.gif" alt="products filters group failure output" style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
+  <video style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12);outline:none;" loop="true" autoplay="autoplay" controls="controls" muted>
+    <source src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-output.mp4" type="video/mp4">
+  </video>
 </div>
 <br/>
 
@@ -21,12 +16,8 @@ In this project, let's build a **Nxt Trendz - Products Filters Group** app by ap
 <details>
 <summary>Click to view</summary>
 
-- [Extra Small (Size < 576px) and Small (Size >= 576px) - Products](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-sm-output-v2.png)
-- [Extra Small (Size < 576px) and Small (Size >= 576px) - No Products](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-sm-no-products-output-v0.png)
-- [Extra Small (Size < 576px) and Small (Size >= 576px) - Failure View](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-sm-failure-view-output.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - Products](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-output-v2.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - No Products](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-no-products-output.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px) - Failure View](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-failure-view.png)
+- [Extra Small (Size < 576px) and Small (Size >= 576px)](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-sm-output-v0.png)
+- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px)](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-lg-output.png)
 
 </details>
 
@@ -47,90 +38,51 @@ In this project, let's build a **Nxt Trendz - Products Filters Group** app by ap
 
 The app must have the following functionalities
 
-- When an authenticated user opens the Products Route,
+- When an unauthenticated user tries to access the **Cart** Route, then the page should be navigated to **Login** Route
 
-  - An HTTP GET request should be made to **productsApiUrl** with `jwt_token` in the Cookies and query parameters `title_search`, `category`, and `rating` with initial values as **empty strings**
-    - **_loader_** should be displayed while fetching the data
-    - After the data is fetched successfully, display the products list received in the response
-    - If the HTTP GET request made is unsuccessful, then the [Failure view](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-failure-view.png) should be displayed
-  - When a non-empty value is provided in the Search Input and the **Enter** button is clicked
-    - Make an HTTP GET request to the **productsApiUrl** with `jwt_token` in the Cookies and query parameter `title_search` with value as the text provided in the Search Input
-    - **_loader_** should be displayed while fetching the data
-    - After the data is fetched successfully, display the products list received in the response
-  - When a **Category** is clicked
-    - Make an HTTP GET request to the URL **productsApiUrl** with `jwt_token` in the Cookies and query parameter `category` with value as the id of the category clicked
-    - **_loader_** should be displayed while fetching the data
-    - After the data is fetched successfully, display the products list received in the response
-  - When a **Rating** is clicked
-    - Make an HTTP GET request to the URL **productsApiUrl** with `jwt_token` in the Cookies and query parameter `rating` with value as the id of the rating clicked
-    - **_loader_** should be displayed while fetching the data
-    - After the data is fetched successfully, display the products list received in the response
-  - When the **Clear Filters** button is clicked
-    - All the filters applied should be reset to initial values
-    - Make an HTTP GET request to the URL **productsApiUrl** with`jwt_token` in the Cookies and without any filters
-    - **_loader_** should be displayed while fetching the data
-    - After the data is fetched successfully, display the products list received in the response
-  - When multiple filters are applied, then the HTTP GET request should be made with all the filters that are applied
+- Following are the features to be implemented
 
-  - For example: When the **Electronics** Category is clicked and rating **4 and above** is clicked the **productsApiUrl** will be as follows
+  - Feature 1
 
-  ```js
-  const apiUrl = 'https://apis.ccbp.in/products?sort_by=PRICE_HIGH&category=2&title_search=&rating=4'
-  ```
+    - When an authenticated user tries to add the same product multiple times
+      - The quantity of the product should be updated accordingly, and the count of the cart items in the header should be remained same
 
-  - If the HTTP GET request returns empty products list, then [No Products View](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-no-products-output.png) should be displayed.
-  - If the HTTP GET request made is unsuccessful, then the [Failure view](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-lg-failure-view.png) should be displayed
+  - Feature 2
 
-  - The `AllProductsSection` component will consist `categoryOptions`. It consists of a list of category option objects with the following properties in each category option object
+    - The total amount and number of items in the cart should be displayed in the **Cart** Route
 
-  |    Key     | Data Type |
-  | :--------: | :-------: |
-  | categoryId |  String   |
-  |    name    |  String   |
+  - Feature 3
 
-  - The `AllProductsSection` component will consist `ratingOption`. It consists of a list of category rating option objects with the following properties in each rating option object
+    - In each cart item in the cart
+      - When the plus icon is clicked, then the quantity of the product should be incremented by one
+      - When the minus icon is clicked, then the quantity of the product should be decremented by one
+      - When the quantity of the product is one and the minus icon is clicked, then the respective product should be removed from the cart
+      - Based on the quantity of the product, the product price and the Cart Summary, i.e the total cost should be updated accordingly
 
-  |   Key    | Data Type |
-  | :------: | :-------: |
-  | ratingId |  String   |
-  | imageUrl |  String   |
+  - Feature 4
 
-</details>
+    - When an authenticated user clicks on the remove button, cart item should be removed from the cart list
 
-<details>
+  - Feature 5
 
-<summary>API Requests & Responses</summary>
-<br/>
+    - When an authenticated user clicks on the **Remove All** button, all the cart items should be removed from the cart and [Empty Cart View](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-empty-cart-view.png) should be displayed
+   
+  - Feature 6
+    - Add a Payment Popup feature to the application. A Popup should be displayed when a user clicks the Checkout button from the cart page.
+    - The Popup should include fields for the user to select one of the payment methods like Card, Net Banking, UPI, Wallet, and Cash on Delivery. Ensure all the options, except for Cash on Delivery, are disabled.
+    - The Popup should also include a summary, which displays the number of items and the total price the user will pay.
+    - The Popup should also have a Confirm Order button. If the Cash on Delivery payment option is not selected, the Confirm Order button must be disabled.
+    - Clicking this button will display a success message stating "Your order has been placed successfully".
+    - Ensure your application maintains good CSS styling.
+ 
 
-**productsApiUrl**
-
-#### API: `https://apis.ccbp.in/products`
-
-#### Example: `https://apis.ccbp.in/products?sort_by=PRICE_HIGH&category=4&title_search=machine&rating=4`
-
-#### Method: `GET`
-
-#### Description:
-
-Returns a response containing the list of Products
-
-#### Success Response
-
-```json
-{
-  "products": [
-    {
-      "title": "Front Load Machine",
-      "brand": "Samsung",
-      "price": 22490,
-      "id": 24,
-      "image_url": "https://assets.ccbp.in/frontend/react-js/ecommerce/appliances-washing-machine.png",
-      "rating": 4.5,
-    },
-      ....
-  ]
-}
-```
+- The `CartContext` has an object as a value with the following properties
+  - `cartList` - this key stores the cart items
+  - `removeAllCartItems` - this method is used to remove all the cart items in the `cartList`
+  - `addCartItem` - this method adds the cart item to the `cartList`
+  - `removeCartItem` - this method removes the cart item from the `cartList`
+  - `incrementCartItemQuantity` - this method increases the quantity of a product in the `cartList`
+  - `decrementCartItemQuantity` - this method decreases the quantity of a product in the `cartList`
 
 </details>
 
@@ -139,7 +91,7 @@ Returns a response containing the list of Products
 
 <br/>
 <div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-products-filter-group-component-structure-breakdown.png" alt="component-breakdown-structure" style="max-width:100%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
+    <img src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-component-structure-breakdown.png" alt="component structure breakdown" style="max-width:100%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
 </div>
 <br/>
 
@@ -151,10 +103,34 @@ Returns a response containing the list of Products
 
 Use these files to complete the implementation:
 
-- `src/components/AllProductsSection/index.js`
-- `src/components/AllProductsSection/index.css`
-- `src/components/FiltersGroup/index.js`
-- `src/components/FiltersGroup/index.css`
+- `src/App.js`
+- `src/components/Cart/index.js`
+- `src/components/Cart/index.css`
+- `src/components/CartItem/index.js`
+- `src/components/CartItem/index.css`
+- `src/components/CartSummary/index.js`
+- `src/components/CartSummary/index.css`
+</details>
+
+### Quick Tips
+
+<details>
+<summary>Click to view</summary>
+<br>
+
+- The `line-height` CSS property sets the height of a line box. It's commonly used to set the distance between lines of text
+
+  ```
+  line-height: 1.5;
+  ```
+
+    <br/>
+    <img src="https://assets.ccbp.in/frontend/react-js/line-height-img.png" alt="line height" style="width:90%; max-width: 600px;"/>
+
+- The array method `find()` returns the first item's value that satisfies the provided testing function. If no item is found, it returns `undefined`
+
+  **Syntax**: `arr.find(Testing Function)`
+
 </details>
 
 ### Important Note
@@ -166,44 +142,38 @@ Use these files to complete the implementation:
 
 **The following instructions are required for the tests to pass**
 
-- `Home` Route should consist of `/` in the URL path
-- `Login` Route should consist of `/login` in the URL path
-- `Products` Route should consist of `/products` in the URL path
-- `Cart` Route should consist of `/cart` in the URL path
-- No need to use the `BrowserRouter` in `App.js` as we have already included in `index.js`
+- `BsPlusSquare`, `BsDashSquare` icons from `react-icons` should be used for **plus** and **minus** buttons in cart item
+- The Cart Item should consist of two HTML button elements with data-testid attribute values as **plus** and **minus** respectively
+- `AiFillCloseCircle` icon from react-icons should be used for **remove** button in cartItem
+- The Cart Item should consist of an HTML button element with data-testid attribute values as **remove**
+- The product image in **Cart Item** Route should have the alt as `title` of the product
 
-- User credentials
+- Prime User credentials
+
+  ```text
+   username: rahul
+   password: rahul@2021
+  ```
+
+- Non-Prime User credentials
 
   ```text
    username: raja
    password: raja@2021
   ```
 
-- The rating stars images in the route should have the alt attribute value as **rating {ratingId}**
-
 </details>
 
 ### Resources
-
-<details>
-<summary>Image URLs</summary>
-
-- [https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png](https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png) alt should be **no products**
-- [https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png](https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png) alt should be **products failure**
-
-</details>
 
 <details>
 <summary>Colors</summary>
 
 <br/>
 
-<div style="background-color: #f1f5f9; width: 150px; padding: 10px; color: black">Hex: #f1f5f9</div>
-<div style="background-color: #0f172a; width: 150px; padding: 10px; color: white">Hex: #0f172a</div>
-<div style="background-color: #12022f; width: 150px; padding: 10px; color: white">Hex: #12022f</div>
-<div style="background-color: #64748b; width: 150px; padding: 10px; color: white">Hex: #64748b</div>
-<div style="background-color: #475569; width: 150px; padding: 10px; color: white">Hex: #475569</div>
-<div style="background-color: #0967d2; width: 150px; padding: 10px; color: white">Hex: #0967d2</div>
+<div style="background-color: #0b69ff; width: 150px; padding: 10px; color: white">Hex: #0b69ff</div>
+<div style="background-color: #171f46; width: 150px; padding: 10px; color: white">Hex: #171f46</div>
+<div style="background-color: #616e7c; width: 150px; padding: 10px; color: white">Hex: #616e7c</div>
 <div style="background-color: #ffffff; width: 150px; padding: 10px; color: black">Hex: #ffffff</div>
 
 </details>
